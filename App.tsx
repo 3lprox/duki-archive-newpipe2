@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ARCHIVE_ITEMS } from './constants';
 import { MediaItem, MediaType, MediaCategory } from './types';
 import TopBar from './components/TopBar';
@@ -30,68 +30,71 @@ const App: React.FC = () => {
   }, [activeCategory, searchQuery]);
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden selection:bg-[#d0bcff] selection:text-[#381e72]">
+    <div className="h-full flex flex-col bg-[#0f0e13] overflow-hidden">
       <TopBar searchQuery={searchQuery} onSearch={setSearchQuery} />
       
-      <div className="flex flex-1 relative">
-        <div className="hidden md:block sticky top-[72px] h-[calc(100vh-72px)] z-30">
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Navigation - Sidebar on desktop */}
+        <aside className="hidden md:flex h-full border-r border-white/5 bg-[#0f0e13] z-30">
           <NavigationRail activeType={activeCategory as any} onTypeChange={(t) => setActiveCategory(t as any)} />
-        </div>
+        </aside>
 
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0f0e13]/90 backdrop-blur-3xl border-t border-white/5 pb-safe">
-           <NavigationRail activeType={activeCategory as any} onTypeChange={(t) => setActiveCategory(t as any)} />
-        </div>
-        
-        <main className={`flex-1 p-6 md:p-10 transition-all ${currentTrack ? 'pb-32' : 'pb-24'}`}>
-          <div className="mx-auto max-w-[1600px]">
-            
-            {/* AVISO DE CATBOX BLOCKING */}
-            <div className="mb-8 animate-[entry_0.6s_ease-out] relative group">
-               <div className="absolute -inset-1 bg-red-500/20 blur-xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-               <div className="relative flex items-center gap-4 bg-red-500/10 border border-red-500/30 p-4 rounded-3xl backdrop-blur-md">
-                  <div className="flex-shrink-0 h-10 w-10 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-400 animate-pulse">
-                     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                     </svg>
-                  </div>
-                  <div>
-                     <h3 className="text-red-400 font-black text-[10px] uppercase tracking-[0.3em] mb-1">Alerta de Red</h3>
-                     <p className="text-white/80 text-xs font-bold leading-relaxed">
-                        Catbox está bloqueando enlaces sin razón aparente. Si un archivo no carga o marca error, es debido a restricciones del servidor externo.
-                     </p>
-                  </div>
-               </div>
+        {/* Main Content Area - This handles its own scroll */}
+        <main className="flex-1 overflow-y-auto custom-scrollbar bg-[#0f0e13] relative">
+          
+          {/* CATBOX DOWN ALERT - MAX VISIBILITY */}
+          <div className="sticky top-0 z-40 px-4 md:px-8 pt-4 md:pt-6 pb-2 bg-[#0f0e13]">
+            <div className="relative overflow-hidden rounded-[24px] md:rounded-[32px] border-2 border-red-600 bg-red-600/10 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 via-transparent to-red-600/20 animate-pulse"></div>
+              <div className="relative flex items-center gap-4 md:gap-6 p-4 md:p-6 backdrop-blur-md">
+                <div className="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 rounded-2xl bg-red-600 flex items-center justify-center text-white shadow-2xl animate-bounce">
+                  <svg className="h-6 w-6 md:h-10 md:h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-red-500 font-black text-[10px] md:text-xs uppercase tracking-[0.5em] mb-1">
+                    ESTADO: SERVIDOR CAÍDO
+                  </h3>
+                  <p className="text-white text-xs md:text-lg font-black uppercase leading-tight tracking-tight">
+                    CATBOX SE CAYÓ SIN EXPLICACIÓN. <span className="text-red-400">LOS LINKS NO FUNCIONARÁN HASTA QUE SE ESTABILICE EL SERVIDOR.</span>
+                  </p>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <header className="mb-12 animate-[entry_0.8s_ease-out]">
+          <div className={`px-4 md:px-10 py-6 transition-all duration-500 ${currentTrack ? 'pb-44' : 'pb-32'}`}>
+            <header className="mb-10">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div className="space-y-4">
+                <div className="space-y-2">
                   <div className="flex items-center gap-3 text-[#d0bcff] font-black uppercase text-[10px] tracking-[0.6em]">
-                    <span className="h-[2px] w-12 bg-gradient-to-r from-[#d0bcff] to-transparent"></span>
-                    Ameri Archive Ultra V4.1
+                    <span className="h-[2px] w-8 bg-[#d0bcff]"></span>
+                    Ameri Archive Monitor V4.3
                   </div>
-                  <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-white leading-none">
-                    {activeCategory === 'all' ? 'Ameri Database' : activeCategory}
+                  <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-white uppercase leading-none">
+                    {activeCategory === 'all' ? 'Vault Access' : activeCategory}
                   </h2>
                 </div>
-                <div className="flex items-center gap-6 bg-white/5 px-8 py-4 rounded-3xl border border-white/10 backdrop-blur-md shadow-2xl">
-                   <div className="flex flex-col items-end">
-                      <span className="text-lg font-black text-[#d0bcff] leading-none">{filteredItems.length}</span>
-                      <span className="text-[8px] font-black opacity-40 uppercase tracking-[0.4em] mt-1">Archivos</span>
+                
+                <div className="flex items-center gap-4 bg-white/5 px-6 py-4 rounded-[24px] border border-white/10">
+                   <div className="text-right">
+                      <span className="text-xl font-black text-[#d0bcff] block leading-none">{filteredItems.length}</span>
+                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">Entries</span>
                    </div>
-                   <div className="h-10 w-[1px] bg-white/10"></div>
-                   <div className="flex flex-col items-end">
-                      <span className="text-[8px] font-black text-green-400 uppercase tracking-[0.4em] animate-pulse">Stable</span>
-                      <span className="text-[8px] font-black opacity-40 uppercase tracking-[0.4em] mt-1">Status</span>
+                   <div className="h-8 w-[1px] bg-white/10"></div>
+                   <div className="text-right">
+                      <span className="text-[8px] font-black text-red-500 uppercase tracking-[0.2em] block">Offline</span>
+                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">Provider</span>
                    </div>
                 </div>
               </div>
             </header>
 
             {filteredItems.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 stagger-in">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 stagger-in">
                 {filteredItems.map((item, idx) => (
-                  <div key={item.id} style={{ animationDelay: `${idx * 0.03}s` }}>
+                  <div key={item.id} style={{ animationDelay: `${idx * 0.02}s` }}>
                     <MediaCard 
                         item={item} 
                         onPlay={handlePlay} 
@@ -101,13 +104,18 @@ const App: React.FC = () => {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-48 opacity-20">
-                <div className="h-24 w-24 mb-6 border-2 border-[#d0bcff] rounded-full border-dashed animate-spin duration-[10s]"></div>
-                <p className="text-[12px] font-black uppercase tracking-[0.8em] text-white">Base de datos vacía</p>
+              <div className="flex flex-col items-center justify-center py-40 opacity-10">
+                <div className="h-24 w-24 mb-6 border-4 border-white/20 rounded-full border-dashed animate-spin"></div>
+                <p className="text-xs font-black uppercase tracking-[1em] text-white">Empty Archive</p>
               </div>
             )}
           </div>
         </main>
+
+        {/* Mobile Navigation - Bottom Bar */}
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-[#0f0e13]/95 backdrop-blur-3xl border-t border-white/5 pb-safe">
+          <NavigationRail activeType={activeCategory as any} onTypeChange={(t) => setActiveCategory(t as any)} />
+        </nav>
       </div>
 
       <PersistentPlayer 
@@ -116,6 +124,13 @@ const App: React.FC = () => {
         setIsPlaying={setIsPlaying}
         onClose={() => { setCurrentTrack(null); setIsPlaying(false); }}
       />
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f0e13; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(208,188,255,0.2); }
+      `}} />
     </div>
   );
 };
