@@ -12,7 +12,8 @@ export enum MediaCategory {
   OPTIMIZED = 'Optimizado',
   SUBTITLE = 'Subtítulo',
   CRO = 'C.R.O',
-  DUKI = 'Duki'
+  DUKI = 'Duki',
+  LEAKED = 'Filtradas'
 }
 
 export interface MediaItem {

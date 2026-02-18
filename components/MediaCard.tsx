@@ -14,10 +14,12 @@ const MediaCard: React.FC<MediaCardProps> = ({ item, onPlay, isActive }) => {
   const isOptimized = categories.includes(MediaCategory.OPTIMIZED);
   const isCRO = categories.includes(MediaCategory.CRO);
   const isDUKI = categories.includes(MediaCategory.DUKI);
+  const isLeaked = categories.includes(MediaCategory.LEAKED);
 
   const getAccentColor = () => {
     if (isActive) return '#ffb4ab'; 
     if (isLostMedia) return '#ff5252'; 
+    if (isLeaked) return '#ffd600'; // Amarillo brillante para filtradas
     if (isCRO) return '#d0bcff'; 
     if (isDUKI) return '#ffffff'; 
     if (isOptimized) return '#00f2ff'; 

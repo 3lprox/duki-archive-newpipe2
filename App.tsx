@@ -101,7 +101,7 @@ const App: React.FC = () => {
                 </svg>
                 <div className="text-center">
                    <span className="text-[9px] font-black uppercase tracking-[0.6em] block mb-1">Contacto del Archivo</span>
-                   <span className="text-xs font-bold lowercase tracking-widest block text-white/40">archive@discofan.com</span>
+                   <span className="text-xs font-bold lowercase tracking-widest block text-white/40">duki-archive-newpipe@protonmail.com</span>
                 </div>
               </div>
               <div className="mt-8 text-[7px] font-black text-white/5 uppercase tracking-[1em]">

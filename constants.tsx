@@ -1,6 +1,24 @@
 import { MediaItem, MediaType, MediaCategory } from './types';
 
 export const ARCHIVE_ITEMS: MediaItem[] = [
+  // --- SECCIÓN FILTRADAS ---
+  {
+    id: 'leak1',
+    name: 'Crazy Duki',
+    url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473524286512697448/Duki_-_Crazy_Prod.RojasOnTheBeat___AdelantoMP3_320K.mp3?ex=69972eae&is=6995dd2e&hm=54aa77a6d97946fe7d172338629e3f376d9cf9d6ee21d969102e8e1cfe9240fd&$0',
+    type: MediaType.AUDIO,
+    category: MediaCategory.LEAKED,
+    format: 'mp3'
+  },
+  {
+    id: 'leak2',
+    name: "Sync, Duki 'Loyal'",
+    url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473441000960688158/Sync_Duki_-_Loyal_V1.mp3?ex=6996e11d&is=69958f9d&hm=35cd4cbf069f2ca50227c8e466cfe2ebf79c6f4f1ca41c0c39ea986d246ab628&$0',
+    type: MediaType.AUDIO,
+    category: MediaCategory.LEAKED,
+    format: 'mp3'
+  },
+
   // --- SECCIÓN C.R.O (Links extraídos de leeme.txt) ---
   { 
     id: 'cro1', 
