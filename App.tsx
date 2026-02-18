@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { ARCHIVE_ITEMS } from './constants';
 import { MediaItem, MediaType, MediaCategory } from './types';
@@ -10,25 +9,38 @@ import LandingGate from './components/LandingGate';
 
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
-  // Fix: Update type definition to include MediaType for the NavigationRail filters
   const [activeCategory, setActiveCategory] = useState<MediaCategory | MediaType | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentTrack, setCurrentTrack] = useState<MediaItem | null>(null);
+  const [currentUrl, setCurrentUrl] = useState<string>('');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   
-  const handlePlay = (item: MediaItem) => {
+  const handleInitialEnter = () => {
+    setHasEntered(true);
+  };
+
+  const handlePlay = (item: MediaItem, customUrl?: string) => {
+    const urlToUse = customUrl || item.url;
+    
     if (currentTrack?.id === item.id) {
-      setIsPlaying(!isPlaying);
+      if (customUrl && currentUrl !== customUrl) {
+        setCurrentUrl(customUrl);
+        setIsPlaying(false); 
+      } else {
+        setIsPlaying(!isPlaying);
+      }
     } else {
       setCurrentTrack(item);
-      setIsPlaying(true);
+      setCurrentUrl(urlToUse);
+      setIsPlaying(false); 
+      setIsExpanded(true); // Abrimos el reproductor expandido con el botón gigante al seleccionar nueva canción
     }
   };
 
   const filteredItems = useMemo(() => {
     return ARCHIVE_ITEMS.filter((item) => {
       const itemCategories = Array.isArray(item.category) ? item.category : [item.category];
-      // Fix: Use string comparison to avoid type overlap errors between MediaType and MediaCategory enums on line 29
       const matchesCategory = activeCategory === 'all' || 
         itemCategories.includes(activeCategory as MediaCategory) || 
         ((item.type as string) === (activeCategory as string));
@@ -40,7 +52,7 @@ const App: React.FC = () => {
   }, [activeCategory, searchQuery]);
 
   if (!hasEntered) {
-    return <LandingGate onEnter={() => setHasEntered(true)} />;
+    return <LandingGate onEnter={handleInitialEnter} />;
   }
 
   return (
@@ -60,7 +72,7 @@ const App: React.FC = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-3 text-[#d0bcff] font-black uppercase text-[10px] tracking-[0.6em]">
                     <span className="h-[2px] w-8 bg-[#d0bcff]"></span>
-                    Ameri Archive Monitor V4.6
+                    Archivo de Duki
                   </div>
                   <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-none">
                     {activeCategory === 'all' ? 'The Vault' : activeCategory}
@@ -70,12 +82,7 @@ const App: React.FC = () => {
                 <div className="flex items-center gap-4 bg-white/5 px-6 py-4 rounded-[24px] border border-white/10 shadow-2xl backdrop-blur-md">
                    <div className="text-right">
                       <span className="text-xl font-black text-[#d0bcff] block leading-none">{filteredItems.length}</span>
-                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">Entries</span>
-                   </div>
-                   <div className="h-8 w-[1px] bg-white/10"></div>
-                   <div className="text-right">
-                      <span className="text-[8px] font-black text-green-400 uppercase tracking-widest block">Live</span>
-                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">System</span>
+                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">Archivos</span>
                    </div>
                 </div>
               </div>
@@ -88,7 +95,8 @@ const App: React.FC = () => {
                     <MediaCard 
                         item={item} 
                         onPlay={handlePlay} 
-                        isActive={currentTrack?.id === item.id && isPlaying}
+                        isActive={currentTrack?.id === item.id}
+                        currentUrl={currentUrl}
                     />
                   </div>
                 ))}
@@ -96,15 +104,14 @@ const App: React.FC = () => {
             ) : (
               <div className="flex flex-col items-center justify-center py-40 opacity-10">
                 <div className="h-24 w-24 mb-6 border-4 border-white/20 rounded-full border-dashed animate-spin"></div>
-                <p className="text-xs font-black uppercase tracking-[1em] text-white">Empty Archive</p>
+                <p className="text-xs font-black uppercase tracking-[1em] text-white">Archivo Vacío</p>
               </div>
             )}
 
             <footer className="mt-20 pb-10 border-t border-white/5 pt-12 flex flex-col items-center">
               <div className="flex flex-col items-center gap-4 text-white/20">
                 <div className="text-center">
-                   <span className="text-[9px] font-black uppercase tracking-[0.6em] block mb-1">Ameri Systems © 2025</span>
-                   <span className="text-[7px] font-bold uppercase tracking-widest block text-white/10">Duki Archive - Premium Experience</span>
+                   <span className="text-[9px] font-black uppercase tracking-[0.6em] block mb-1">Duki Archive © 2025</span>
                 </div>
               </div>
             </footer>
@@ -118,9 +125,12 @@ const App: React.FC = () => {
 
       <PersistentPlayer 
         item={currentTrack} 
+        activeUrl={currentUrl}
         isPlaying={isPlaying} 
         setIsPlaying={setIsPlaying}
         onClose={() => { setCurrentTrack(null); setIsPlaying(false); }}
+        isExpanded={isExpanded}
+        setIsExpanded={setIsExpanded}
       />
 
       <style dangerouslySetInnerHTML={{ __html: `

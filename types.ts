@@ -20,6 +20,7 @@ export interface MediaItem {
   id: string;
   name: string;
   url: string;
+  mirrors?: string[]; // Nuevas fuentes alternativas
   type: MediaType;
   category: MediaCategory | MediaCategory[];
   format: string;
