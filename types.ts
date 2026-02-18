@@ -13,14 +13,15 @@ export enum MediaCategory {
   SUBTITLE = 'Subtítulo',
   CRO = 'C.R.O',
   DUKI = 'Duki',
-  LEAKED = 'Filtradas'
+  LEAKED = 'Filtradas',
+  FREE = 'Free / Release'
 }
 
 export interface MediaItem {
   id: string;
   name: string;
   url: string;
-  mirrors?: string[]; // Nuevas fuentes alternativas
+  mirrors?: string[];
   type: MediaType;
   category: MediaCategory | MediaCategory[];
   format: string;

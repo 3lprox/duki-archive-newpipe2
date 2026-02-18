@@ -1,6 +1,32 @@
 import { MediaItem, MediaType, MediaCategory } from './types';
 
 export const ARCHIVE_ITEMS: MediaItem[] = [
+  // --- FREE RELEASES / NO FILTRADAS ---
+  { 
+    id: 'f-kaio', 
+    name: 'KAIŌSAMA ⭐', 
+    url: 'https://files.catbox.moe/hwon9v.opus', 
+    type: MediaType.AUDIO, 
+    category: [MediaCategory.FREE, MediaCategory.DUKI], 
+    format: 'opus' 
+  },
+  { 
+    id: 'n-crazy', 
+    name: 'Ballin (Crazy) (Prod. RojasOnTheBeat)', 
+    url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473524286512697448/Duki_-_Crazy_Prod.RojasOnTheBeat___AdelantoMP3_320K.mp3?ex=69972eae&is=6995dd2e&hm=54aa77a6d97946fe7d172338629e3f376d9cf9d6ee21d969102e8e1cfe9240fd&$0', 
+    type: MediaType.AUDIO, 
+    category: [MediaCategory.FREE, MediaCategory.DUKI], 
+    format: 'mp3' 
+  },
+  { 
+    id: 'o43', 
+    name: '5202 Beat [FREE]', 
+    url: 'https://files.catbox.moe/h5552z.opus', 
+    type: MediaType.AUDIO, 
+    category: [MediaCategory.FREE, MediaCategory.DUKI], 
+    format: 'opus' 
+  },
+
   // --- FILTRADOS / LEAKS ---
   { 
     id: 'n-hago', 
@@ -26,16 +52,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
     category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
     format: 'mp3' 
   },
-  { 
-    id: 'n-crazy', 
-    name: 'Crazy (Prod. RojasOnTheBeat)', 
-    url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473524286512697448/Duki_-_Crazy_Prod.RojasOnTheBeat___AdelantoMP3_320K.mp3?ex=69972eae&is=6995dd2e&hm=54aa77a6d97946fe7d172338629e3f376d9cf9d6ee21d969102e8e1cfe9240fd&$0', 
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
-    format: 'mp3' 
-  },
   { id: 'f-adn', name: 'ADN (Adelanto)', url: 'https://files.catbox.moe/ts4243.opus', type: MediaType.AUDIO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'opus', subtitleUrl: 'https://files.catbox.moe/uihx7f.srt' },
-  { id: 'f-kaio', name: 'KAIŌSAMA ⭐', url: 'https://files.catbox.moe/hwon9v.opus', type: MediaType.AUDIO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'opus' },
 
   // --- VIDEOS RECUPERADOS / LOST MEDIA ---
   { id: 'v1', name: 'Starboy Remix (Video Oficial)', url: 'https://files.catbox.moe/va1nvu.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4', subtitleUrl: 'https://files.catbox.moe/1ysq3x.srt' },
@@ -81,7 +98,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'p12', name: 'Señorita', url: 'https://files.catbox.moe/gccrm1.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'p13', name: 'Perdón', url: 'https://files.catbox.moe/s7juib.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
 
-  // --- M4A / AMERI ERA ---
+  // --- AMERI ERA ---
   { id: 'm1', name: 'Nueva Era', url: 'https://files.catbox.moe/m9yj94.m4a', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'm4a' },
   { id: 'm2', name: 'MASCARA', url: 'https://files.catbox.moe/2wlavj.m4a', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'm4a' },
   { id: 'm3', name: 'Pininfarina (Remix)', url: 'https://files.catbox.moe/vt9lro.m4a', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'm4a' },
@@ -141,7 +158,6 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'o40', name: 'Remember Me', url: 'https://files.catbox.moe/m1dbnm.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o41', name: 'aGaRRo La PLaTa', url: 'https://files.catbox.moe/p8mmnc.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o42', name: 'Toc Psycho', url: 'https://files.catbox.moe/3cz78g.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
-  { id: 'o43', name: '5202 Beat', url: 'https://files.catbox.moe/h5552z.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o44', name: 'Wake Up & Bake Up', url: 'https://files.catbox.moe/pactro.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o45', name: 'No Drama', url: 'https://files.catbox.moe/2ixq23.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o46', name: 'Constelación', url: 'https://files.catbox.moe/g3bwh7.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },

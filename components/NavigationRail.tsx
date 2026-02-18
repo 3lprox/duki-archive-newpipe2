@@ -18,9 +18,9 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L14.5 9H22L16,13.5L18.5,20.5L12,16L5.5,20.5L8,13.5L2,9H9.5L12,2Z" />
       </svg>
     )},
-    { id: MediaCategory.CRO, label: 'C.R.O', icon: (
+    { id: MediaCategory.FREE, label: 'Free', icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
       </svg>
     )},
     { id: MediaCategory.LEAKED, label: 'Filtradas', icon: (
