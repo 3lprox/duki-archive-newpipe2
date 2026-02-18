@@ -13,6 +13,11 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
       </svg>
     )},
+    { id: MediaCategory.DUKI, label: 'Duki', icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L14.5 9H22L16,13.5L18.5,20.5L12,16L5.5,20.5L8,13.5L2,9H9.5L12,2Z" />
+      </svg>
+    )},
     { id: MediaCategory.CRO, label: 'C.R.O', icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -31,7 +36,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
   ];
 
   return (
-    <nav className="flex md:flex-col items-center justify-around md:justify-start gap-4 p-2 md:p-6 bg-[#1c1b1f] md:w-24 h-full border-r border-white/5">
+    <nav className="flex md:flex-col items-center justify-around md:justify-start gap-4 p-2 md:p-6 bg-[#1c1b1f] md:w-24 h-full border-r border-white/5 overflow-y-auto no-scrollbar">
       {items.map((item) => {
         const isActive = activeType === item.id;
         
@@ -39,7 +44,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
           <button
             key={item.id}
             onClick={() => onTypeChange(item.id as any)}
-            className={`flex flex-col items-center gap-1.5 transition-all duration-300 w-full group`}
+            className={`flex flex-col items-center gap-1.5 transition-all duration-300 w-full group shrink-0`}
           >
             <div className={`h-8 md:h-12 w-12 md:w-full flex items-center justify-center rounded-[20px] transition-all duration-300 ${isActive ? 'bg-[#d0bcff] text-[#381e72] shadow-[0_0_15px_rgba(208,188,255,0.4)]' : 'text-[#938f99] group-hover:bg-white/5'}`}>
               {item.icon}

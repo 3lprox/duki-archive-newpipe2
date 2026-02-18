@@ -11,7 +11,8 @@ export enum MediaCategory {
   LOST_MEDIA = 'Lost Media',
   OPTIMIZED = 'Optimizado',
   SUBTITLE = 'Subtítulo',
-  CRO = 'C.R.O'
+  CRO = 'C.R.O',
+  DUKI = 'Duki'
 }
 
 export interface MediaItem {

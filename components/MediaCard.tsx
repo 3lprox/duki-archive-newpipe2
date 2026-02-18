@@ -13,11 +13,13 @@ const MediaCard: React.FC<MediaCardProps> = ({ item, onPlay, isActive }) => {
   const isLostMedia = categories.includes(MediaCategory.LOST_MEDIA);
   const isOptimized = categories.includes(MediaCategory.OPTIMIZED);
   const isCRO = categories.includes(MediaCategory.CRO);
+  const isDUKI = categories.includes(MediaCategory.DUKI);
 
   const getAccentColor = () => {
     if (isActive) return '#ffb4ab'; 
     if (isLostMedia) return '#ff5252'; 
     if (isCRO) return '#d0bcff'; 
+    if (isDUKI) return '#ffffff'; 
     if (isOptimized) return '#00f2ff'; 
     return '#d0bcff'; 
   };
