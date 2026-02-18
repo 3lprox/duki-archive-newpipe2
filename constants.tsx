@@ -1,7 +1,7 @@
 import { MediaItem, MediaType, MediaCategory } from './types';
 
 export const ARCHIVE_ITEMS: MediaItem[] = [
-  // --- SECCIÓN FILTRADAS ---
+  // --- SECCIÓN FILTRADAS (LEAKED) ---
   {
     id: 'leak1',
     name: 'Crazy Duki',
@@ -18,18 +18,24 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
     category: MediaCategory.LEAKED,
     format: 'mp3'
   },
-
-  // --- SECCIÓN C.R.O (Links extraídos de leeme.txt) ---
-  { 
-    id: 'cro1', 
-    name: 'C.R.O - Fresco', 
-    url: 'https://cdn.discordapp.com/attachments/1404746778741575730/1466238646674784287/Fresco_Cenfe.mp3?ex=69970b66&is=6995b9e6&hm=4941840e57c827f8faf9ab7357de0b2a44306d2ff77dfe871ee977cbc503eabc&$0', 
-    type: MediaType.AUDIO, 
-    category: MediaCategory.CRO, 
-    format: 'mp3' 
+  {
+    id: 'leak3',
+    name: 'Duki - [Adelanto Filtrado]',
+    url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470910512354164938/v14044g50000d64ihdvog65usaotora0.mov?ex=6996e6ea&is=6995956a&hm=1bbd4ccc35935cecaaa94d02ad9c2ccd6c3b6f6e371a4b614393729a3f548a13&$0',
+    type: MediaType.VIDEO,
+    category: MediaCategory.LEAKED,
+    format: 'mov'
   },
 
   // --- VIDEOS ---
+  { 
+    id: 'v9', 
+    name: 'Duki, Khea - No sé como lo hago', 
+    url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470890942419435540/465013446.mp4?ex=6996d4b0&is=69958330&hm=15027dc8cec0567518ce892f58fa42c9521a90333d950d32cc4f09b58574a01b&$0', 
+    type: MediaType.VIDEO, 
+    category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], 
+    format: 'mp4' 
+  },
   { id: 'v1', name: 'Starboy Remix (Video Oficial)', url: 'https://files.catbox.moe/va1nvu.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4', subtitleUrl: 'https://files.catbox.moe/1ysq3x.srt' },
   { id: 'v2', name: 'Level Up (Prod. Estani) - Lost Media', url: 'https://files.catbox.moe/0fqzb5.mp4', type: MediaType.VIDEO, category: [MediaCategory.LOST_MEDIA, MediaCategory.DUKI], format: 'mp4' },
   { id: 'v3', name: 'Cayendo Pa Arriba (Video Oficial) - Lost Media', url: 'https://files.catbox.moe/4nxxek.mp4', type: MediaType.VIDEO, category: [MediaCategory.LOST_MEDIA, MediaCategory.DUKI], format: 'mp4' },
@@ -38,6 +44,16 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'v6', name: 'aPOLLo13 (Video Oficial)', url: 'https://files.catbox.moe/g5c56g.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4' },
   { id: 'v7', name: 'En Parte... No lo sé (Video)', url: 'https://files.catbox.moe/0r3ivn.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4' },
   { id: 'v8', name: 'YaMeFui (ft. Nicki Nicole, Bizarrap)', url: 'https://files.catbox.moe/iblf4k.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4' },
+
+  // --- SECCIÓN C.R.O ---
+  { 
+    id: 'cro1', 
+    name: 'C.R.O - Fresco', 
+    url: 'https://cdn.discordapp.com/attachments/1404746778741575730/1466238646674784287/Fresco_Cenfe.mp3?ex=69970b66&is=6995b9e6&hm=4941840e57c827f8faf9ab7357de0b2a44306d2ff77dfe871ee977cbc503eabc&$0', 
+    type: MediaType.AUDIO, 
+    category: MediaCategory.CRO, 
+    format: 'mp3' 
+  },
 
   // --- AUDIOS OPTIMIZADOS ---
   { id: 'a1', name: 'Starboy Remix (Audio HQ)', url: 'https://files.catbox.moe/rcba1j.m4a', type: MediaType.AUDIO, category: [MediaCategory.OPTIMIZED, MediaCategory.DUKI], format: 'm4a', subtitleUrl: 'https://files.catbox.moe/1ysq3x.srt' },
@@ -111,7 +127,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'm14', name: 'No me Llores (Remix)', url: 'https://files.catbox.moe/8hgifr.m4a', type: MediaType.AUDIO, category: [MediaCategory.OPTIMIZED, MediaCategory.DUKI], format: 'm4a' },
   { id: 'm15', name: 'RoCKSTAR 2.0', url: 'https://files.catbox.moe/k9svla.m4a', type: MediaType.AUDIO, category: [MediaCategory.OPTIMIZED, MediaCategory.DUKI], format: 'm4a' },
 
-  // --- OTROS & RAROS ---
+  // --- OTROS ---
   { id: 'o1', name: '2Tonos', url: 'https://files.catbox.moe/pnbixg.opus', type: MediaType.AUDIO, category: [MediaCategory.OPTIMIZED, MediaCategory.DUKI], format: 'opus' },
   { id: 'o2', name: 'antes de perderte (OG)', url: 'https://files.catbox.moe/v78gkq.opus', type: MediaType.AUDIO, category: [MediaCategory.LOST_MEDIA, MediaCategory.DUKI], format: 'opus' },
   { id: 'o3', name: 'BUSCANDO Ameri', url: 'https://files.catbox.moe/gtsm5b.opus', type: MediaType.AUDIO, category: [MediaCategory.OPTIMIZED, MediaCategory.DUKI], format: 'opus' },
