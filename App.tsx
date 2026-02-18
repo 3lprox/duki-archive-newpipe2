@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { ARCHIVE_ITEMS } from './constants';
 import { MediaItem, MediaType, MediaCategory } from './types';
@@ -9,7 +10,8 @@ import LandingGate from './components/LandingGate';
 
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<MediaCategory | 'all'>('all');
+  // Fix: Update type definition to include MediaType for the NavigationRail filters
+  const [activeCategory, setActiveCategory] = useState<MediaCategory | MediaType | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentTrack, setCurrentTrack] = useState<MediaItem | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,7 +28,11 @@ const App: React.FC = () => {
   const filteredItems = useMemo(() => {
     return ARCHIVE_ITEMS.filter((item) => {
       const itemCategories = Array.isArray(item.category) ? item.category : [item.category];
-      const matchesCategory = activeCategory === 'all' || itemCategories.includes(activeCategory as MediaCategory);
+      // Fix: Use string comparison to avoid type overlap errors between MediaType and MediaCategory enums on line 29
+      const matchesCategory = activeCategory === 'all' || 
+        itemCategories.includes(activeCategory as MediaCategory) || 
+        ((item.type as string) === (activeCategory as string));
+      
       const q = searchQuery.toLowerCase();
       const matchesSearch = item.name.toLowerCase().includes(q) || item.format.toLowerCase().includes(q);
       return matchesCategory && matchesSearch;
@@ -56,7 +62,7 @@ const App: React.FC = () => {
                     <span className="h-[2px] w-8 bg-[#d0bcff]"></span>
                     Ameri Archive Monitor V4.6
                   </div>
-                  <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-white uppercase leading-none">
+                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-none">
                     {activeCategory === 'all' ? 'The Vault' : activeCategory}
                   </h2>
                 </div>
@@ -68,17 +74,17 @@ const App: React.FC = () => {
                    </div>
                    <div className="h-8 w-[1px] bg-white/10"></div>
                    <div className="text-right">
-                      <span className="text-[8px] font-black text-green-400 uppercase tracking-[0.2em] block">Online</span>
-                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">Status</span>
+                      <span className="text-[8px] font-black text-green-400 uppercase tracking-widest block">Live</span>
+                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">System</span>
                    </div>
                 </div>
               </div>
             </header>
 
             {filteredItems.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 stagger-in">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 stagger-in">
                 {filteredItems.map((item, idx) => (
-                  <div key={item.id} style={{ animationDelay: `${idx * 0.02}s` }}>
+                  <div key={item.id} style={{ animationDelay: `${idx * 0.01}s` }}>
                     <MediaCard 
                         item={item} 
                         onPlay={handlePlay} 
@@ -95,17 +101,11 @@ const App: React.FC = () => {
             )}
 
             <footer className="mt-20 pb-10 border-t border-white/5 pt-12 flex flex-col items-center">
-              <div className="flex flex-col items-center gap-4 text-white/20 hover:text-[#d0bcff]/40 transition-colors duration-500 cursor-default">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+              <div className="flex flex-col items-center gap-4 text-white/20">
                 <div className="text-center">
-                   <span className="text-[9px] font-black uppercase tracking-[0.6em] block mb-1">Contacto del Archivo</span>
-                   <span className="text-xs font-bold lowercase tracking-widest block text-white/40">duki-archive-newpipe@protonmail.com</span>
+                   <span className="text-[9px] font-black uppercase tracking-[0.6em] block mb-1">Ameri Systems © 2025</span>
+                   <span className="text-[7px] font-bold uppercase tracking-widest block text-white/10">Duki Archive - Premium Experience</span>
                 </div>
-              </div>
-              <div className="mt-8 text-[7px] font-black text-white/5 uppercase tracking-[1em]">
-                 Ameri Systems © 2025
               </div>
             </footer>
           </div>
@@ -124,7 +124,7 @@ const App: React.FC = () => {
       />
 
       <style dangerouslySetInnerHTML={{ __html: `
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f0e13; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(208,188,255,0.2); }

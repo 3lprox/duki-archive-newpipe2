@@ -27,6 +27,7 @@ export interface MediaItem {
   artist?: string;
   album?: string;
   subtitleUrl?: string;
+  coverUrl?: string;
 }
 
 export interface NavigationItem {
