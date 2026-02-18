@@ -42,7 +42,7 @@ const App: React.FC = () => {
         {/* Main Content Area - This handles its own scroll */}
         <main className="flex-1 overflow-y-auto custom-scrollbar bg-[#0f0e13] relative">
           
-          <div className={`px-4 md:px-10 py-8 transition-all duration-500 ${currentTrack ? 'pb-44' : 'pb-32'}`}>
+          <div className={`px-4 md:px-10 py-8 transition-all duration-500 ${currentTrack ? 'pb-56' : 'pb-32'}`}>
             <header className="mb-10">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-2">
@@ -87,6 +87,22 @@ const App: React.FC = () => {
                 <p className="text-xs font-black uppercase tracking-[1em] text-white">Empty Archive</p>
               </div>
             )}
+
+            {/* Footer de contacto */}
+            <footer className="mt-20 pb-10 border-t border-white/5 pt-12 flex flex-col items-center">
+              <div className="flex flex-col items-center gap-4 text-white/20 hover:text-[#d0bcff]/40 transition-colors duration-500 cursor-default">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <div className="text-center">
+                   <span className="text-[9px] font-black uppercase tracking-[0.6em] block mb-1">Contacto del Archivo</span>
+                   <span className="text-xs font-bold lowercase tracking-widest block text-white/40">archive@discofan.com</span>
+                </div>
+              </div>
+              <div className="mt-8 text-[7px] font-black text-white/5 uppercase tracking-[1em]">
+                 Ameri Systems © 2025
+              </div>
+            </footer>
           </div>
         </main>
 
