@@ -128,17 +128,19 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
         {isExpanded ? (
           <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-12 relative overflow-hidden">
              
+             {/* Fondo Ameri */}
              <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-1 bg-white/30 animate-[scanline_4s_linear_infinite]"></div>
              </div>
 
+             {/* Header */}
              <div className="absolute top-8 inset-x-8 flex items-center justify-between z-50">
                 <button onClick={() => setIsExpanded(false)} className="flex items-center gap-3 group">
                    <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white/5 transition-colors">
                       <svg className="h-5 w-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
                    </div>
                    <div className="flex flex-col text-left">
-                      <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Monitor</span>
+                      <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Monitor Ameri</span>
                       <span className="text-[14px] font-black text-white uppercase truncate max-w-[200px]">{item.name}</span>
                    </div>
                 </button>
@@ -149,23 +151,23 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
 
              <div className="w-full max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 z-10 px-4 pt-16">
                 
-                {/* BOTÓN GIGANTE DE REPRODUCCIÓN (SOLO SI NO ESTÁ SONANDO) */}
+                {/* BOTÓN GIGANTE DE REPRODUCCIÓN (REQUISITO: APARECE AL SELECCIONAR CANCIÓN EN PAUSA) */}
                 {!isPlaying && (
-                  <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm group pointer-events-none">
+                  <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md pointer-events-none">
                     <button 
                       onClick={togglePlayback}
-                      className="h-56 w-56 md:h-80 md:w-80 rounded-full bg-[#d0bcff] text-[#381e72] shadow-[0_0_100px_rgba(208,188,255,0.4)] pointer-events-auto transition-all hover:scale-110 active:scale-90 flex flex-col items-center justify-center border-8 border-white/20 animate-pulse"
+                      className="h-64 w-64 md:h-96 md:w-96 rounded-full bg-[#d0bcff] text-[#381e72] shadow-[0_0_150px_rgba(208,188,255,0.6)] pointer-events-auto transition-all hover:scale-110 active:scale-90 flex flex-col items-center justify-center border-[12px] border-white/20 animate-pulse group"
                     >
-                      <svg className="h-24 w-24 md:h-40 md:w-40 ml-4" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-32 w-32 md:h-48 md:w-48 ml-6 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
                       </svg>
-                      <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] mt-4">REPRODUCIR</span>
+                      <span className="text-xs md:text-sm font-black uppercase tracking-[0.8em] mt-6">PLAY AMERI</span>
                     </button>
                   </div>
                 )}
 
                 {isVideo ? (
-                  <div className="w-full h-full max-h-[80vh] bg-black rounded-[40px] overflow-hidden shadow-2xl border border-white/5 flex flex-col relative">
+                  <div className="w-full h-full max-h-[75vh] bg-black rounded-[48px] overflow-hidden shadow-2xl border border-white/5 flex flex-col relative">
                     <video 
                       ref={videoRef} 
                       src={currentMediaUrl} 
@@ -188,6 +190,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                               </div>
                            </div>
                         </div>
+                        
                         <div className="w-full flex flex-col gap-6 max-w-md">
                            <div className="flex items-center gap-6">
                               <span className="text-[12px] mono text-white/30 w-12">{Math.floor(currentTime/60)}:{(Math.floor(currentTime%60)).toString().padStart(2,'0')}</span>
@@ -197,16 +200,20 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                               </div>
                               <span className="text-[12px] mono text-white/30 w-12">{Math.floor(duration/60) || 0}:{(Math.floor(duration%60) || 0).toString().padStart(2,'0')}</span>
                            </div>
-                           <button onClick={togglePlayback} className="h-24 w-24 mx-auto rounded-full bg-[#d0bcff] text-[#381e72] flex items-center justify-center shadow-[0_10px_50px_rgba(208,188,255,0.4)] active:scale-90 transition-all hover:scale-105 border-4 border-white/10">
-                              {isPlaying ? <svg className="h-12 w-12" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> : <svg className="h-12 w-12 ml-1.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>}
-                           </button>
+                           
+                           <div className="flex items-center justify-center gap-8">
+                             <button onClick={togglePlayback} className="h-24 w-24 rounded-full bg-[#d0bcff] text-[#381e72] flex items-center justify-center shadow-[0_10px_50px_rgba(208,188,255,0.4)] active:scale-90 transition-all hover:scale-105 border-4 border-white/10">
+                                {isPlaying ? <svg className="h-12 w-12" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> : <svg className="h-12 w-12 ml-1.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>}
+                             </button>
+                           </div>
                         </div>
                         <audio ref={audioRef} src={currentMediaUrl} hidden />
                      </div>
+                     
                      <div className="flex-1 w-full h-[400px] md:h-[600px] relative">
                         <div className="absolute inset-0 border-l border-white/5 flex flex-col">
                            <div className="px-8 py-4 border-b border-white/5 flex justify-between items-center bg-white/5">
-                              <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Letras</span>
+                              <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Letras Sincronizadas</span>
                            </div>
                            <div className="flex-1 overflow-y-auto no-scrollbar px-8 py-10 relative">
                               {cues.length > 0 ? (
@@ -222,7 +229,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                                 </div>
                               ) : (
                                 <div className="h-full flex flex-col items-center justify-center text-white/5">
-                                   <span className="text-[10px] font-black uppercase tracking-widest">Sin letras</span>
+                                   <span className="text-[10px] font-black uppercase tracking-widest">Contenido Instrumental</span>
                                 </div>
                               )}
                            </div>
@@ -240,7 +247,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                </div>
                <div className="truncate">
                   <p className="text-[14px] font-black text-white uppercase truncate tracking-tight">{item.name}</p>
-                  <p className="text-[9px] font-black text-[#d0bcff] uppercase tracking-widest opacity-40">{item.format} • {isPlaying ? 'Sonando' : 'Pausa'}</p>
+                  <p className="text-[9px] font-black text-[#d0bcff] uppercase tracking-widest opacity-40">{item.format} • {isPlaying ? 'SONANDO' : 'PAUSA'}</p>
                </div>
             </div>
             <div className="flex items-center gap-4" onClick={e => e.stopPropagation()}>

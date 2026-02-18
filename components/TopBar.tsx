@@ -55,10 +55,11 @@ const TopBar: React.FC<TopBarProps> = ({ onSearch, searchQuery }) => {
               <span className="text-[9px] font-black text-[#d0bcff] uppercase tracking-widest">Aportar</span>
             </a>
 
-            {/* Correo Contacto */}
+            {/* Correo Contacto Actualizado */}
             <a 
-              href="mailto:archive@duki.ameri"
+              href="mailto:duki-archive-newpipe@protonmail.com"
               className="hidden sm:flex h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-[#2b2930] items-center justify-center text-[#938f99] hover:text-[#d0bcff] border border-white/5 transition-colors"
+              title="Contacto"
             >
                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

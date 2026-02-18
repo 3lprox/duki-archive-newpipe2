@@ -21,7 +21,7 @@ const LandingGate: React.FC<LandingGateProps> = ({ onEnter }) => {
   return (
     <div className={`fixed inset-0 z-[1000] flex items-center justify-center bg-[#0f0e13] transition-all duration-700 ${isExiting ? 'opacity-0 scale-125 pointer-events-none' : 'opacity-100'}`}>
       
-      {/* Glow Effects */}
+      {/* Efectos Ameri */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#d0bcff]/5 blur-[120px] rounded-full animate-pulse"></div>
       
       <div className="relative z-10 w-full max-w-md px-8 flex flex-col items-center text-center">
@@ -45,12 +45,12 @@ const LandingGate: React.FC<LandingGateProps> = ({ onEnter }) => {
           onClick={handleEnter}
           className="group relative px-16 py-5 rounded-full border border-[#d0bcff]/30 text-[#d0bcff] transition-all hover:bg-[#d0bcff] hover:text-[#381e72] hover:border-[#d0bcff] hover:scale-105 active:scale-95 flex items-center justify-center overflow-hidden"
         >
-          <span className="relative z-10 text-[12px] font-black uppercase tracking-[0.4em]">Entrar</span>
+          <span className="relative z-10 text-[12px] font-black uppercase tracking-[0.6em]">Entrar</span>
           <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
         </button>
 
         <p className="mt-20 text-[8px] font-black text-white/10 uppercase tracking-[1.5em]">
-          ARCHIVO DESBLOQUEADO
+          ARCHIVO ESTRELLA DESBLOQUEADO
         </p>
       </div>
     </div>
