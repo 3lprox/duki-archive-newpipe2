@@ -1,6 +1,9 @@
 import { MediaItem, MediaType, MediaCategory } from './types';
 
 export const ARCHIVE_ITEMS: MediaItem[] = [
+  // --- SECCIÓN C.R.O ---
+  { id: 'cro1', name: 'C.R.O - Fresco', url: 'https://cdn.discordapp.com/attachments/1404746778741575730/1466238646674784287/Fresco_Cenfe.mp3?ex=69970b66&is=6995b9e6&hm=4941840e57c827f8faf9ab7357de0b2a44306d2ff77dfe871ee977cbc503eabc&$0', type: MediaType.AUDIO, category: MediaCategory.CRO, format: 'mp3' },
+
   // --- VIDEOS ---
   { id: 'v1', name: 'Starboy Remix (Video Oficial)', url: 'https://files.catbox.moe/va1nvu.mp4', type: MediaType.VIDEO, category: MediaCategory.OFFICIAL, format: 'mp4', subtitleUrl: 'https://files.catbox.moe/1ysq3x.srt' },
   { id: 'v2', name: 'Level Up (Prod. Estani) - Lost Media', url: 'https://files.catbox.moe/0fqzb5.mp4', type: MediaType.VIDEO, category: MediaCategory.LOST_MEDIA, format: 'mp4' },
@@ -32,7 +35,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
 
   // --- PLAYLIST SECTION ---
   { id: 'p1', name: 'DUKI - Cine', url: 'https://files.catbox.moe/1hu8bk.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
-  { id: 'p2', name: 'DUKI_C.R.O - #FVCKLUV', url: 'https://files.catbox.moe/j8qocp.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
+  { id: 'p2', name: 'DUKI_C.R.O - #FVCKLUV', url: 'https://files.catbox.moe/j8qocp.opus', type: MediaType.AUDIO, category: [MediaCategory.OPTIMIZED, MediaCategory.CRO], format: 'opus' },
   { id: 'p3', name: 'DUKI, Aleman - Me Gusta lo Simple', url: 'https://files.catbox.moe/ydylsy.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'p4', name: "DUKI, C. Tangana, Khea - It's a Vibe", url: 'https://files.catbox.moe/tgu1hv.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'p5', name: 'DUKI, Lucho SSJ - La Jefatura', url: 'https://files.catbox.moe/s0tppn.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },

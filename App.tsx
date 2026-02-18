@@ -5,8 +5,10 @@ import TopBar from './components/TopBar';
 import NavigationRail from './components/NavigationRail';
 import MediaCard from './components/MediaCard';
 import PersistentPlayer from './components/PersistentPlayer';
+import LandingGate from './components/LandingGate';
 
 const App: React.FC = () => {
+  const [hasEntered, setHasEntered] = useState(false);
   const [activeCategory, setActiveCategory] = useState<MediaCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentTrack, setCurrentTrack] = useState<MediaItem | null>(null);
@@ -23,23 +25,27 @@ const App: React.FC = () => {
 
   const filteredItems = useMemo(() => {
     return ARCHIVE_ITEMS.filter((item) => {
-      const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
+      const itemCategories = Array.isArray(item.category) ? item.category : [item.category];
+      const matchesCategory = activeCategory === 'all' || itemCategories.includes(activeCategory as MediaCategory);
       const q = searchQuery.toLowerCase();
-      return matchesCategory && (item.name.toLowerCase().includes(q) || item.format.toLowerCase().includes(q));
+      const matchesSearch = item.name.toLowerCase().includes(q) || item.format.toLowerCase().includes(q);
+      return matchesCategory && matchesSearch;
     });
   }, [activeCategory, searchQuery]);
 
+  if (!hasEntered) {
+    return <LandingGate onEnter={() => setHasEntered(true)} />;
+  }
+
   return (
-    <div className="h-full flex flex-col bg-[#0f0e13] overflow-hidden">
+    <div className="h-full flex flex-col bg-[#0f0e13] overflow-hidden animate-in fade-in duration-1000">
       <TopBar searchQuery={searchQuery} onSearch={setSearchQuery} />
       
       <div className="flex flex-1 overflow-hidden relative">
-        {/* Navigation - Sidebar on desktop */}
-        <aside className="hidden md:flex h-full border-r border-white/5 bg-[#0f0e13] z-30">
+        <aside className="hidden md:flex h-full border-r border-white/5 bg-[#1c1b1f] z-30">
           <NavigationRail activeType={activeCategory as any} onTypeChange={(t) => setActiveCategory(t as any)} />
         </aside>
 
-        {/* Main Content Area - This handles its own scroll */}
         <main className="flex-1 overflow-y-auto custom-scrollbar bg-[#0f0e13] relative">
           
           <div className={`px-4 md:px-10 py-8 transition-all duration-500 ${currentTrack ? 'pb-56' : 'pb-32'}`}>
@@ -48,7 +54,7 @@ const App: React.FC = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-3 text-[#d0bcff] font-black uppercase text-[10px] tracking-[0.6em]">
                     <span className="h-[2px] w-8 bg-[#d0bcff]"></span>
-                    Ameri Archive Monitor V4.4
+                    Ameri Archive Monitor V4.6
                   </div>
                   <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-white uppercase leading-none">
                     {activeCategory === 'all' ? 'The Vault' : activeCategory}
@@ -88,7 +94,6 @@ const App: React.FC = () => {
               </div>
             )}
 
-            {/* Footer de contacto */}
             <footer className="mt-20 pb-10 border-t border-white/5 pt-12 flex flex-col items-center">
               <div className="flex flex-col items-center gap-4 text-white/20 hover:text-[#d0bcff]/40 transition-colors duration-500 cursor-default">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -106,8 +111,7 @@ const App: React.FC = () => {
           </div>
         </main>
 
-        {/* Mobile Navigation - Bottom Bar */}
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-[#0f0e13]/95 backdrop-blur-3xl border-t border-white/5 pb-safe">
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-[#1c1b1f]/95 backdrop-blur-3xl border-t border-white/5 pb-safe">
           <NavigationRail activeType={activeCategory as any} onTypeChange={(t) => setActiveCategory(t as any)} />
         </nav>
       </div>

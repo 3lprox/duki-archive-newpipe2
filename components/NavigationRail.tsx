@@ -1,9 +1,9 @@
 import React from 'react';
-import { MediaType } from '../types';
+import { MediaType, MediaCategory } from '../types';
 
 interface NavigationRailProps {
-  activeType: MediaType | 'all';
-  onTypeChange: (type: MediaType | 'all') => void;
+  activeType: MediaType | MediaCategory | 'all';
+  onTypeChange: (type: MediaType | MediaCategory | 'all') => void;
 }
 
 const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChange }) => {
@@ -11,6 +11,11 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
     { id: 'all', label: 'Todo', icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+      </svg>
+    )},
+    { id: MediaCategory.CRO, label: 'C.R.O', icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
       </svg>
     )},
     { id: MediaType.VIDEO, label: 'Videos', icon: (
@@ -23,11 +28,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" />
       </svg>
     )},
-    { id: 'form', label: 'Enviar', icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-    ), isExternal: true, url: 'https://duki-archive-newpipe-form.base44.app/' },
   ];
 
   return (
@@ -35,25 +35,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
       {items.map((item) => {
         const isActive = activeType === item.id;
         
-        if (item.isExternal) {
-          return (
-            <a
-              key={item.id}
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-1.5 transition-all duration-300 w-full group"
-            >
-              <div className="h-8 md:h-12 w-12 md:w-full flex items-center justify-center rounded-[20px] transition-all duration-300 text-[#ffb4ab]/50 group-hover:bg-[#ffb4ab]/10 group-hover:text-[#ffb4ab]">
-                {item.icon}
-              </div>
-              <span className="text-[10px] font-bold tracking-widest uppercase transition-colors text-[#938f99] group-hover:text-[#ffb4ab]">
-                {item.label}
-              </span>
-            </a>
-          );
-        }
-
         return (
           <button
             key={item.id}

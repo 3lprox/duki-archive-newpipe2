@@ -10,7 +10,8 @@ export enum MediaCategory {
   OFFICIAL = 'Oficial',
   LOST_MEDIA = 'Lost Media',
   OPTIMIZED = 'Optimizado',
-  SUBTITLE = 'Subtítulo'
+  SUBTITLE = 'Subtítulo',
+  CRO = 'C.R.O'
 }
 
 export interface MediaItem {
@@ -18,7 +19,7 @@ export interface MediaItem {
   name: string;
   url: string;
   type: MediaType;
-  category: MediaCategory;
+  category: MediaCategory | MediaCategory[];
   format: string;
   size?: string;
   artist?: string;
