@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaItem, MediaType, MediaCategory } from '../types';
+import { MediaItem, MediaType } from '../types';
 
 interface MediaCardProps {
   item: MediaItem;
@@ -14,19 +14,19 @@ const MediaCard: React.FC<MediaCardProps> = ({ item, onPlay, isActive, currentUr
 
   return (
     <div 
-      className={`group relative flex items-center gap-4 rounded-[24px] px-5 py-3 transition-all duration-300 border overflow-hidden ${
+      className={`group relative flex items-center gap-4 rounded-[12px] p-4 transition-all duration-200 border ${
         isActive 
-          ? 'bg-[#2b2930] border-[#d0bcff] shadow-[0_10px_30px_rgba(208,188,255,0.1)] scale-[1.02]' 
-          : 'bg-[#1c1b1f] border-white/5 hover:border-white/10 hover:bg-[#25232a]'
+          ? 'bg-[#2b2930] border-[#d0bcff] shadow-lg' 
+          : 'bg-[#1c1b1f] border-transparent hover:bg-[#25232a] active:scale-[0.98]'
       }`}
     >
-      {/* EL ICONO ES EL REPRODUCTOR */}
+      {/* Icon/Play Button - MD3 Elevated feel */}
       <button 
         onClick={(e) => { e.stopPropagation(); onPlay(item); }}
-        className={`h-12 w-12 flex-shrink-0 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-lg ${
+        className={`h-12 w-12 flex-shrink-0 rounded-[12px] flex items-center justify-center transition-all duration-300 ${
           isActive 
-            ? 'bg-[#d0bcff] text-[#381e72] rotate-12' 
-            : 'bg-white/5 text-[#d0bcff] group-hover:bg-[#d0bcff] group-hover:text-[#381e72]'
+            ? 'bg-[#d0bcff] text-[#381e72] shadow-sm' 
+            : 'bg-[#2b2930] text-[#d0bcff] group-hover:bg-[#d0bcff] group-hover:text-[#381e72]'
         }`}
       >
         {isActive ? (
@@ -45,31 +45,30 @@ const MediaCard: React.FC<MediaCardProps> = ({ item, onPlay, isActive, currentUr
       </button>
 
       <div className="flex-1 min-w-0 flex flex-col">
-        <h3 className={`text-[13px] font-black uppercase truncate tracking-tight transition-colors ${isActive ? 'text-white' : 'text-white/70'}`}>
+        <h3 className={`text-sm font-bold truncate tracking-tight transition-colors ${isActive ? 'text-white' : 'text-[#e6e1e5]'}`}>
           {item.name}
         </h3>
         
-        <div className="flex flex-wrap items-center gap-2 mt-1.5">
-           {/* Botones de instancia/enlace si hay varios */}
+        <div className="flex flex-wrap items-center gap-2 mt-2">
            {allSources.length > 1 && (
-             <div className="flex items-center gap-1 mr-2">
+             <div className="flex items-center gap-1">
                {allSources.map((src, idx) => (
                  <button
                   key={idx}
                   onClick={(e) => { e.stopPropagation(); onPlay(item, src); }}
-                  className={`text-[8px] font-black px-2 py-1 rounded-md border transition-all ${
+                  className={`text-[9px] font-black px-2 py-0.5 rounded-full border transition-all ${
                     currentUrl === src && isActive
                     ? 'bg-[#d0bcff] border-[#d0bcff] text-[#381e72]'
-                    : 'bg-white/5 border-white/10 text-white/40 hover:text-white hover:border-white/30'
+                    : 'bg-white/5 border-white/10 text-white/40 hover:text-white'
                   }`}
                  >
-                   {idx + 1} ENLACE
+                   LINK {idx + 1}
                  </button>
                ))}
              </div>
            )}
 
-           <span className="text-[8px] font-black uppercase tracking-widest text-[#d0bcff]/60">
+           <span className="text-[10px] font-medium text-[#938f99] uppercase tracking-wider bg-white/5 px-2 py-0.5 rounded-md">
              {categories[0]}
            </span>
         </div>

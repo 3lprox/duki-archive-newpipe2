@@ -1,91 +1,23 @@
 import { MediaItem, MediaType, MediaCategory } from './types';
 
 export const ARCHIVE_ITEMS: MediaItem[] = [
-  // --- FREE RELEASES / NO FILTRADAS ---
-  { 
-    id: 'f-kaio', 
-    name: 'KAIŌSAMA ⭐', 
-    url: 'https://files.catbox.moe/hwon9v.opus', 
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.FREE, MediaCategory.DUKI], 
-    format: 'opus' 
-  },
-  { 
-    id: 'n-crazy', 
-    name: 'Ballin (Crazy) (Prod. RojasOnTheBeat)', 
-    url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473524286512697448/Duki_-_Crazy_Prod.RojasOnTheBeat___AdelantoMP3_320K.mp3?ex=69972eae&is=6995dd2e&hm=54aa77a6d97946fe7d172338629e3f376d9cf9d6ee21d969102e8e1cfe9240fd&$0', 
-    mirrors: ['https://files.catbox.moe/bojzqa.mp3'],
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.FREE, MediaCategory.DUKI], 
-    format: 'mp3' 
-  },
-  { 
-    id: 'cro-fresco', 
-    name: 'Fresco', 
-    url: 'https://cdn.discordapp.com/attachments/1404746778741575730/1466238646674784287/Fresco_Cenfe.mp3?ex=69970b66&is=6995b9e6&hm=4941840e57c827f8faf9ab7357de0b2a44306d2ff77dfe871ee977cbc503eabc&$0', 
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.FREE, MediaCategory.CRO], 
-    format: 'mp3' 
-  },
-  { 
-    id: 'o43', 
-    name: '5202 Beat [FREE]', 
-    url: 'https://files.catbox.moe/h5552z.opus', 
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.FREE, MediaCategory.DUKI], 
-    format: 'opus' 
-  },
+  // --- LEAKS / FILTRADAS (REALES) ---
+  { id: 'leak-demonios', name: 'Mis Demonios (Filtrado Completo)', url: 'https://files.catbox.moe/placeholder.opus', type: MediaType.AUDIO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'opus' },
+  { id: 'n-hago', name: 'No sé como lo hago (ft. Khea)', url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470890942419435540/465013446.mp4?ex=6996d4b0&is=69958330&hm=15027dc8cec0567518ce892f58fa42c9521a90333d950d32cc4f09b58574a01b&$0', mirrors: ['https://files.catbox.moe/8f7o2c.mp4'], type: MediaType.VIDEO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'mp4' },
+  { id: 'n-dash', name: '-', url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470910512354164938/v14044g50000d64ihdvog65usaotora0.mov?ex=6996e6ea&is=6995956a&hm=1bbd4ccc35935cecaaa94d02ad9c2ccd6c3b6f6e371a4b614393729a3f548a13&$0', mirrors: ['https://files.catbox.moe/5qe3ub.mov'], type: MediaType.VIDEO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'mov' },
+  { id: 'n-loyal', name: 'Loyal', url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473441000960688158/Sync_Duki_-_Loyal_V1.mp3?ex=6996e11d&is=69958f9d&hm=35cd4cbf069f2ca50227c8e466cfe2ebf79c6f4f1ca41c0c39ea986d246ab628&$0', mirrors: ['https://files.catbox.moe/g9cgqo.mp3'], type: MediaType.AUDIO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'mp3' },
+  { id: 'f-adn', name: 'ADN (Adelanto)', url: 'https://files.catbox.moe/ts4243.opus', type: MediaType.AUDIO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'opus', subtitleUrl: 'https://files.catbox.moe/uihx7f.srt' },
 
-  // --- FILTRADOS / LEAKS ---
-  { 
-    id: 'n-hago', 
-    name: 'No sé como lo hago (ft. Khea)', 
-    url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470890942419435540/465013446.mp4?ex=6996d4b0&is=69958330&hm=15027dc8cec0567518ce892f58fa42c9521a90333d950d32cc4f09b58574a01b&$0', 
-    mirrors: ['https://files.catbox.moe/8f7o2c.mp4'],
-    type: MediaType.VIDEO, 
-    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
-    format: 'mp4' 
-  },
-  { 
-    id: 'n-dash', 
-    name: '-', 
-    url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470910512354164938/v14044g50000d64ihdvog65usaotora0.mov?ex=6996e6ea&is=6995956a&hm=1bbd4ccc35935cecaaa94d02ad9c2ccd6c3b6f6e371a4b614393729a3f548a13&$0', 
-    mirrors: ['https://files.catbox.moe/5qe3ub.mov'],
-    type: MediaType.VIDEO, 
-    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
-    format: 'mov' 
-  },
-  { 
-    id: 'n-loyal', 
-    name: 'Loyal', 
-    url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473441000960688158/Sync_Duki_-_Loyal_V1.mp3?ex=6996e11d&is=69958f9d&hm=35cd4cbf069f2ca50227c8e466cfe2ebf79c6f4f1ca41c0c39ea986d246ab628&$0', 
-    mirrors: ['https://files.catbox.moe/g9cgqo.mp3'],
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
-    format: 'mp3' 
-  },
-  { 
-    id: 'f-adn', 
-    name: 'ADN (Adelanto)', 
-    url: 'https://files.catbox.moe/ts4243.opus', 
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
-    format: 'opus', 
-    subtitleUrl: 'https://files.catbox.moe/uihx7f.srt' 
-  },
-  { 
-    id: 'l-hello-og', 
-    name: 'Hello Cotto (Primera versión)', 
-    url: 'https://files.catbox.moe/q23ac9.opus', 
-    type: MediaType.AUDIO, 
-    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
-    format: 'opus' 
-  },
+  // --- FREE / EDITS / RELEASES ---
+  { id: 'f-kaio', name: 'KAIŌSAMA ⭐', url: 'https://files.catbox.moe/hwon9v.opus', type: MediaType.AUDIO, category: [MediaCategory.FREE, MediaCategory.DUKI], format: 'opus' },
+  { id: 'n-crazy', name: 'Ballin (Crazy)', url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473524286512697448/Duki_-_Crazy_Prod.RojasOnTheBeat___AdelantoMP3_320K.mp3?ex=69972eae&is=6995dd2e&hm=54aa77a6d97946fe7d172338629e3f376d9cf9d6ee21d969102e8e1cfe9240fd&$0', mirrors: ['https://files.catbox.moe/bojzqa.mp3'], type: MediaType.AUDIO, category: [MediaCategory.FREE, MediaCategory.DUKI], format: 'mp3' },
+  { id: 'cro-fresco', name: 'Fresco', url: 'https://cdn.discordapp.com/attachments/1404746778741575730/1466238646674784287/Fresco_Cenfe.mp3?ex=69970b66&is=6995b9e6&hm=4941840e57c827f8faf9ab7357de0b2a44306d2ff77dfe871ee977cbc503eabc&$0', type: MediaType.AUDIO, category: [MediaCategory.FREE, MediaCategory.CRO], format: 'mp3' },
+  { id: 'o43', name: '[FREE] 5202 Beat', url: 'https://files.catbox.moe/h5552z.opus', type: MediaType.AUDIO, category: [MediaCategory.FREE, MediaCategory.DUKI], format: 'opus' },
 
   // --- VIDEOS RECUPERADOS / LOST MEDIA ---
   { id: 'v1', name: 'Starboy Remix (Video Oficial)', url: 'https://files.catbox.moe/va1nvu.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4', subtitleUrl: 'https://files.catbox.moe/1ysq3x.srt' },
   { id: 'v2', name: 'Level Up (Lost Media)', url: 'https://files.catbox.moe/0fqzb5.mp4', type: MediaType.VIDEO, category: [MediaCategory.LOST_MEDIA, MediaCategory.DUKI], format: 'mp4' },
-  { id: 'v3', name: 'Cayendo Pa Arriba (Lost Media)', url: 'https://files.catbox.moe/4nxxek.mp4', type: MediaType.VIDEO, category: [MediaCategory.LOST_MEDIA, MediaCategory.DUKI], format: 'mp4' },
+  { id: 'v3', name: 'Cayendo Pa Arriba (Video Oficial)', url: 'https://files.catbox.moe/4nxxek.mp4', type: MediaType.VIDEO, category: [MediaCategory.LOST_MEDIA, MediaCategory.DUKI], format: 'mp4' },
   { id: 'v4', name: 'Sold Out Dates (Oficial)', url: 'https://files.catbox.moe/6s93n0.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4' },
   { id: 'v5', name: 'Ticket (ft. Yesan, Asan)', url: 'https://files.catbox.moe/2usvm9.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4' },
   { id: 'v6', name: 'aPOLLo13 (Oficial)', url: 'https://files.catbox.moe/g5c56g.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4' },
@@ -93,15 +25,15 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'v8', name: 'YaMeFui (Bizarrap, Nicki Nicole)', url: 'https://files.catbox.moe/iblf4k.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4' },
 
   // --- AUDIOS OPTIMIZADOS ---
-  { id: 'a1', name: 'Starboy Remix (HQ)', url: 'https://files.catbox.moe/rcba1j.m4a', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'm4a' },
-  { id: 'a2', name: 'Level Up (.opus)', url: 'https://files.catbox.moe/scg3vf.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
-  { id: 'a3', name: 'Cayendo Pa Arriba (.opus)', url: 'https://files.catbox.moe/ri3oxg.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
-  { id: 'a4', name: '2_50 Remix (.opus)', url: 'https://files.catbox.moe/owmap1.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
-  { id: 'a5', name: 'Mericrisma (.opus)', url: 'https://files.catbox.moe/xx0emk.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus', subtitleUrl: 'https://files.catbox.moe/003t76.srt' },
-  { id: 'a6', name: 'Sold Out Dates (.opus)', url: 'https://files.catbox.moe/blddy4.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
+  { id: 'a1', name: 'Starboy Remix (Audio HQ)', url: 'https://files.catbox.moe/rcba1j.m4a', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'm4a' },
+  { id: 'a2', name: 'Level Up (Audio .opus)', url: 'https://files.catbox.moe/scg3vf.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
+  { id: 'a3', name: 'Cayendo Pa Arriba (Audio .opus)', url: 'https://files.catbox.moe/ri3oxg.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
+  { id: 'a4', name: '2_50 Remix (Audio .opus)', url: 'https://files.catbox.moe/owmap1.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
+  { id: 'a5', name: 'Mericrisma (Audio .opus)', url: 'https://files.catbox.moe/xx0emk.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus', subtitleUrl: 'https://files.catbox.moe/003t76.srt' },
+  { id: 'a6', name: 'Sold Out Dates (Audio)', url: 'https://files.catbox.moe/blddy4.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'a7', name: 'Tumbando el Club (Remix)', url: 'https://files.catbox.moe/pyuv9h.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'a8', name: 'WACHA (ft. Khea)', url: 'https://files.catbox.moe/0z4b4l.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
-  { id: 'a9', name: 'Sin Frenos (Bizarrap)', url: 'https://files.catbox.moe/a88ch1.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
+  { id: 'a9', name: 'Sin Frenos (ft. Eladio Carrión)', url: 'https://files.catbox.moe/a88ch1.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'a10', name: 'Chico Estrella', url: 'https://files.catbox.moe/9pa8qc.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'a11', name: 'GELATO (ft. Smokepurpp)', url: 'https://files.catbox.moe/329et0.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'a12', name: 'Iba a Llamarte', url: 'https://files.catbox.moe/tch5fk.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
@@ -111,7 +43,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'a16', name: 'Por Mi Nombre', url: 'https://files.catbox.moe/2jlb0k.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
   { id: 'a17', name: 'Mojaa', url: 'https://files.catbox.moe/t7fi2g.opus', type: MediaType.AUDIO, category: MediaCategory.OPTIMIZED, format: 'opus' },
 
-  // --- PLAYLIST / SECCIÓN DUKI ---
+  // --- PLAYLIST ---
   { id: 'p1', name: 'Cine', url: 'https://files.catbox.moe/1hu8bk.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'p2', name: '#FVCKLUV (ft. C.R.O)', url: 'https://files.catbox.moe/j8qocp.opus', type: MediaType.AUDIO, category: [MediaCategory.DUKI, MediaCategory.CRO], format: 'opus' },
   { id: 'p3', name: 'Me Gusta lo Simple', url: 'https://files.catbox.moe/ydylsy.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
@@ -143,7 +75,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'm14', name: 'No me Llores (Remix)', url: 'https://files.catbox.moe/8hgifr.m4a', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'm4a' },
   { id: 'm15', name: 'RoCKSTAR 2.0', url: 'https://files.catbox.moe/k9svla.m4a', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'm4a' },
 
-  // --- ARCHIVO COMPLETO ---
+  // --- OTROS / ARCHIVO COMPLETO ---
   { id: 'o1', name: '2Tonos', url: 'https://files.catbox.moe/pnbixg.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o2', name: 'Antes de Perderte (OG)', url: 'https://files.catbox.moe/v78gkq.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o3', name: 'BUSCANDO Ameri', url: 'https://files.catbox.moe/gtsm5b.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
@@ -164,7 +96,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
   { id: 'o18', name: 'Ticket (Vivo)', url: 'https://files.catbox.moe/uz56gg.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o19', name: 'Sudor y trabajo', url: 'https://files.catbox.moe/3p4ev6.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o20', name: 'Sol (ft. Lara91k)', url: 'https://files.catbox.moe/1ndw8k.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
-  { id: 'o21', name: 'hARAKiRi (ZECCA)', url: 'https://files.catbox.moe/e3t8zp.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
+  { id: 'o21', name: 'hARAKiRi (ZECCA Remix)', url: 'https://files.catbox.moe/e3t8zp.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o22', name: 'Unfollow', url: 'https://files.catbox.moe/t88s1w.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o23', name: 'aPOLLo13 (Audio)', url: 'https://files.catbox.moe/1dleps.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
   { id: 'o24', name: 'Ella es mi Bitch', url: 'https://files.catbox.moe/62t2jf.opus', type: MediaType.AUDIO, category: MediaCategory.DUKI, format: 'opus' },
