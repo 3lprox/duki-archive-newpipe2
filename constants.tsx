@@ -19,6 +19,14 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
     format: 'mp3' 
   },
   { 
+    id: 'cro-fresco', 
+    name: 'Fresco', 
+    url: 'https://cdn.discordapp.com/attachments/1404746778741575730/1466238646674784287/Fresco_Cenfe.mp3?ex=69970b66&is=6995b9e6&hm=4941840e57c827f8faf9ab7357de0b2a44306d2ff77dfe871ee977cbc503eabc&$0', 
+    type: MediaType.AUDIO, 
+    category: [MediaCategory.FREE, MediaCategory.CRO], 
+    format: 'mp3' 
+  },
+  { 
     id: 'o43', 
     name: '5202 Beat [FREE]', 
     url: 'https://files.catbox.moe/h5552z.opus', 

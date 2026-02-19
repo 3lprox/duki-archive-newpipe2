@@ -9,7 +9,7 @@ import LandingGate from './components/LandingGate';
 
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<MediaCategory | MediaType | 'all'>('all');
+  const [activeCategory, setActiveCategory] = useState<MediaCategory | MediaType | 'all' | 'legal'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentTrack, setCurrentTrack] = useState<MediaItem | null>(null);
   const [currentUrl, setCurrentUrl] = useState<string>('');
@@ -34,11 +34,12 @@ const App: React.FC = () => {
       setCurrentTrack(item);
       setCurrentUrl(urlToUse);
       setIsPlaying(false); 
-      setIsExpanded(true); // Abrimos el reproductor expandido con el botón gigante al seleccionar nueva canción
+      setIsExpanded(true); 
     }
   };
 
   const filteredItems = useMemo(() => {
+    if (activeCategory === 'legal') return [];
     return ARCHIVE_ITEMS.filter((item) => {
       const itemCategories = Array.isArray(item.category) ? item.category : [item.category];
       const matchesCategory = activeCategory === 'all' || 
@@ -61,7 +62,7 @@ const App: React.FC = () => {
       
       <div className="flex flex-1 overflow-hidden relative">
         <aside className="hidden md:flex h-full border-r border-white/5 bg-[#1c1b1f] z-30">
-          <NavigationRail activeType={activeCategory as any} onTypeChange={(t) => setActiveCategory(t as any)} />
+          <NavigationRail activeType={activeCategory} onTypeChange={setActiveCategory} />
         </aside>
 
         <main className="flex-1 overflow-y-auto custom-scrollbar bg-[#0f0e13] relative">
@@ -75,21 +76,62 @@ const App: React.FC = () => {
                     Archivo de Duki
                   </div>
                   <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-none">
-                    {activeCategory === 'all' ? 'The Vault' : activeCategory}
+                    {activeCategory === 'all' ? 'The Vault' : activeCategory === 'legal' ? 'Cosas Aburridas' : (activeCategory === MediaCategory.FREE ? 'Free / Release' : activeCategory)}
                   </h2>
                 </div>
                 
-                <div className="flex items-center gap-4 bg-white/5 px-6 py-4 rounded-[24px] border border-white/10 shadow-2xl backdrop-blur-md">
-                   <div className="text-right">
-                      <span className="text-xl font-black text-[#d0bcff] block leading-none">{filteredItems.length}</span>
-                      <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.3em]">Archivos</span>
-                   </div>
-                </div>
+                {activeCategory !== 'legal' && (
+                  <div className="inline-flex items-center gap-4 bg-white/5 px-6 py-4 rounded-[28px] border border-white/10 shadow-2xl">
+                     <div className="text-right">
+                        <span className="text-2xl font-black text-[#d0bcff] block leading-none">{filteredItems.length}</span>
+                        <span className="text-[8px] font-black opacity-30 uppercase tracking-[0.4em]">Archivos</span>
+                     </div>
+                  </div>
+                )}
               </div>
             </header>
 
-            {filteredItems.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 stagger-in">
+            {activeCategory === 'legal' ? (
+              <div className="max-w-3xl mx-auto space-y-12 animate-in slide-in-from-bottom-8 duration-700 pb-20">
+                <div className="p-8 md:p-12 rounded-[40px] bg-[#1c1b1f] border border-white/5 shadow-2xl space-y-10">
+                  <section className="space-y-4">
+                    <h3 className="text-[#d0bcff] font-black uppercase text-xs tracking-[0.3em]">Misión del Proyecto</h3>
+                    <p className="text-lg text-white/70 leading-relaxed font-medium">
+                      Este sitio web es un proyecto sin fines de lucro creado por y para fans con el único objetivo de preservar el legado musical y la evolución artística de Mauro Ezequiel Lombardo (Duki).
+                    </p>
+                  </section>
+
+                  <section className="space-y-4">
+                    <h3 className="text-[#d0bcff] font-black uppercase text-xs tracking-[0.3em]">Derechos de Autor</h3>
+                    <p className="text-white/60 leading-relaxed">
+                      Todo el material audiovisual y fonográfico pertenece a sus respectivos autores, productores y sellos discográficos (SSJ Records / Dale Play Records). No reclamamos propiedad sobre ninguno de los archivos aquí alojados.
+                    </p>
+                  </section>
+
+                  <section className="space-y-4">
+                    <h3 className="text-[#d0bcff] font-black uppercase text-xs tracking-[0.3em]">Uso No Comercial</h3>
+                    <p className="text-white/60 leading-relaxed">
+                      Este sitio no genera ingresos, no contiene publicidad invasiva y no vende acceso al contenido.
+                    </p>
+                  </section>
+
+                  <section className="space-y-4 p-6 rounded-3xl bg-red-500/5 border border-red-500/10">
+                    <h3 className="text-red-400 font-black uppercase text-xs tracking-[0.3em]">Peticiones de Retiro</h3>
+                    <p className="text-white/60 leading-relaxed">
+                      Respetamos la voluntad del artista y su equipo legal. Si eres el titular de los derechos y deseas que algún archivo sea eliminado, por favor contáctanos a <a href="mailto:duki-archive-newpipe@protonmail.com" className="text-red-400 hover:underline">duki-archive-newpipe@protonmail.com</a> y procederemos a la baja inmediata de los enlaces.
+                    </p>
+                  </section>
+
+                  <section className="space-y-4">
+                    <h3 className="text-[#d0bcff] font-black uppercase text-xs tracking-[0.3em]">Apoyamos al artista</h3>
+                    <p className="text-white/60 leading-relaxed italic">
+                      Si te gusta la música, escúchala en plataformas oficiales y compra entradas para sus shows.
+                    </p>
+                  </section>
+                </div>
+              </div>
+            ) : filteredItems.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 stagger-in">
                 {filteredItems.map((item, idx) => (
                   <div key={item.id} style={{ animationDelay: `${idx * 0.01}s` }}>
                     <MediaCard 
@@ -104,22 +146,14 @@ const App: React.FC = () => {
             ) : (
               <div className="flex flex-col items-center justify-center py-40 opacity-10">
                 <div className="h-24 w-24 mb-6 border-4 border-white/20 rounded-full border-dashed animate-spin"></div>
-                <p className="text-xs font-black uppercase tracking-[1em] text-white">Archivo Vacío</p>
+                <p className="text-xs font-black uppercase tracking-[1em] text-white">Vacio</p>
               </div>
             )}
-
-            <footer className="mt-20 pb-10 border-t border-white/5 pt-12 flex flex-col items-center">
-              <div className="flex flex-col items-center gap-4 text-white/20">
-                <div className="text-center">
-                   <span className="text-[9px] font-black uppercase tracking-[0.6em] block mb-1">Duki Archive © 2025</span>
-                </div>
-              </div>
-            </footer>
           </div>
         </main>
 
         <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-[#1c1b1f]/95 backdrop-blur-3xl border-t border-white/5 pb-safe">
-          <NavigationRail activeType={activeCategory as any} onTypeChange={(t) => setActiveCategory(t as any)} />
+          <NavigationRail activeType={activeCategory} onTypeChange={setActiveCategory} />
         </nav>
       </div>
 
