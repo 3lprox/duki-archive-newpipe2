@@ -14,6 +14,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
     id: 'n-crazy', 
     name: 'Ballin (Crazy) (Prod. RojasOnTheBeat)', 
     url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473524286512697448/Duki_-_Crazy_Prod.RojasOnTheBeat___AdelantoMP3_320K.mp3?ex=69972eae&is=6995dd2e&hm=54aa77a6d97946fe7d172338629e3f376d9cf9d6ee21d969102e8e1cfe9240fd&$0', 
+    mirrors: ['https://files.catbox.moe/bojzqa.mp3'],
     type: MediaType.AUDIO, 
     category: [MediaCategory.FREE, MediaCategory.DUKI], 
     format: 'mp3' 
@@ -40,6 +41,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
     id: 'n-hago', 
     name: 'No sé como lo hago (ft. Khea)', 
     url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470890942419435540/465013446.mp4?ex=6996d4b0&is=69958330&hm=15027dc8cec0567518ce892f58fa42c9521a90333d950d32cc4f09b58574a01b&$0', 
+    mirrors: ['https://files.catbox.moe/8f7o2c.mp4'],
     type: MediaType.VIDEO, 
     category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
     format: 'mp4' 
@@ -48,6 +50,7 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
     id: 'n-dash', 
     name: '-', 
     url: 'https://cdn.discordapp.com/attachments/1427834829625622529/1470910512354164938/v14044g50000d64ihdvog65usaotora0.mov?ex=6996e6ea&is=6995956a&hm=1bbd4ccc35935cecaaa94d02ad9c2ccd6c3b6f6e371a4b614393729a3f548a13&$0', 
+    mirrors: ['https://files.catbox.moe/5qe3ub.mov'],
     type: MediaType.VIDEO, 
     category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
     format: 'mov' 
@@ -56,11 +59,28 @@ export const ARCHIVE_ITEMS: MediaItem[] = [
     id: 'n-loyal', 
     name: 'Loyal', 
     url: 'https://cdn.discordapp.com/attachments/1233205096221900830/1473441000960688158/Sync_Duki_-_Loyal_V1.mp3?ex=6996e11d&is=69958f9d&hm=35cd4cbf069f2ca50227c8e466cfe2ebf79c6f4f1ca41c0c39ea986d246ab628&$0', 
+    mirrors: ['https://files.catbox.moe/g9cgqo.mp3'],
     type: MediaType.AUDIO, 
     category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
     format: 'mp3' 
   },
-  { id: 'f-adn', name: 'ADN (Adelanto)', url: 'https://files.catbox.moe/ts4243.opus', type: MediaType.AUDIO, category: [MediaCategory.LEAKED, MediaCategory.DUKI], format: 'opus', subtitleUrl: 'https://files.catbox.moe/uihx7f.srt' },
+  { 
+    id: 'f-adn', 
+    name: 'ADN (Adelanto)', 
+    url: 'https://files.catbox.moe/ts4243.opus', 
+    type: MediaType.AUDIO, 
+    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
+    format: 'opus', 
+    subtitleUrl: 'https://files.catbox.moe/uihx7f.srt' 
+  },
+  { 
+    id: 'l-hello-og', 
+    name: 'Hello Cotto (Primera versión)', 
+    url: 'https://files.catbox.moe/q23ac9.opus', 
+    type: MediaType.AUDIO, 
+    category: [MediaCategory.LEAKED, MediaCategory.DUKI], 
+    format: 'opus' 
+  },
 
   // --- VIDEOS RECUPERADOS / LOST MEDIA ---
   { id: 'v1', name: 'Starboy Remix (Video Oficial)', url: 'https://files.catbox.moe/va1nvu.mp4', type: MediaType.VIDEO, category: [MediaCategory.OFFICIAL, MediaCategory.DUKI], format: 'mp4', subtitleUrl: 'https://files.catbox.moe/1ysq3x.srt' },
