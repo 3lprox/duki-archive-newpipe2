@@ -14,7 +14,8 @@ export enum MediaCategory {
   CRO = 'C.R.O',
   DUKI = 'Duki',
   LEAKED = 'Filtradas',
-  FREE = 'Free / Release'
+  FREE = 'Free / Release',
+  PLAYLIST = 'Playlist'
 }
 
 export interface MediaItem {

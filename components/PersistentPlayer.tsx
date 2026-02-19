@@ -9,6 +9,7 @@ interface PersistentPlayerProps {
   onClose: () => void;
   isExpanded: boolean;
   setIsExpanded: (val: boolean) => void;
+  onPlaybackError?: (id: string) => void;
 }
 
 interface Cue {
@@ -24,13 +25,15 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
   setIsPlaying, 
   onClose,
   isExpanded,
-  setIsExpanded
+  setIsExpanded,
+  onPlaybackError
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [cues, setCues] = useState<Cue[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
   
   const parseSRTTime = (timeStr: string) => {
     const parts = timeStr.trim().replace(',', '.').split(':');
@@ -73,7 +76,11 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
       if (isPlaying) {
         media.pause();
       } else {
-        media.play().catch(console.error);
+        media.play().catch(err => {
+          console.error("Playback failed:", err);
+          if (item && onPlaybackError) onPlaybackError(item.id);
+          setLoadError("Archivo no disponible. Purgando registro...");
+        });
       }
     }
   };
@@ -84,12 +91,26 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
       const handlePlay = () => setIsPlaying(true);
       const handlePause = () => setIsPlaying(false);
       const onTimeUpdate = () => setCurrentTime(media.currentTime);
-      const onLoaded = () => setDuration(media.duration);
+      const onLoaded = () => {
+        setDuration(media.duration);
+        setLoadError(null);
+      };
+      
+      const onError = (e: any) => {
+        console.error("Media Error Event:", e);
+        setIsPlaying(false);
+        setLoadError("ERROR: El servidor devolvió 0 o link corrupto. Eliminando de la lista...");
+        if (item && onPlaybackError) {
+          // Esperamos para que el usuario vea el mensaje antes de que el card desaparezca
+          setTimeout(() => onPlaybackError(item.id), 2000);
+        }
+      };
 
       media.addEventListener('play', handlePlay);
       media.addEventListener('pause', handlePause);
       media.addEventListener('timeupdate', onTimeUpdate);
       media.addEventListener('loadedmetadata', onLoaded);
+      media.addEventListener('error', onError);
 
       if (isPlaying) {
         media.play().catch(() => setIsPlaying(false));
@@ -102,6 +123,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
         media.removeEventListener('pause', handlePause);
         media.removeEventListener('timeupdate', onTimeUpdate);
         media.removeEventListener('loadedmetadata', onLoaded);
+        media.removeEventListener('error', onError);
       };
     }
   }, [item?.id, activeUrl, isPlaying]);
@@ -110,6 +132,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
     if (item) {
       setCurrentTime(0);
       setDuration(0);
+      setLoadError(null);
       const media = item.type === MediaType.VIDEO ? videoRef.current : audioRef.current;
       if (media) {
         media.load();
@@ -121,6 +144,19 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
   const isVideo = item.type === MediaType.VIDEO;
   const currentMediaUrl = activeUrl || item.url;
 
+  const getMimeType = (url: string) => {
+    const ext = url.split('.').pop()?.split('?')[0].toLowerCase();
+    switch(ext) {
+      case 'mp4': return isVideo ? 'video/mp4' : 'audio/mp4';
+      case 'm4a': return 'audio/mp4';
+      case 'mov': return 'video/quicktime';
+      case 'flac': return 'audio/flac';
+      case 'opus': return 'audio/ogg; codecs=opus';
+      case 'mp3': return 'audio/mpeg';
+      default: return isVideo ? 'video/mp4' : 'audio/mpeg';
+    }
+  };
+
   return (
     <div className={`fixed inset-x-0 bottom-0 z-[100] transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${isExpanded ? 'h-full' : 'h-16 md:h-20'}`}>
       <div className={`relative h-full w-full bg-[#0f0e13]/98 backdrop-blur-3xl flex flex-col overflow-hidden border-t border-white/5 shadow-2xl`}>
@@ -128,31 +164,43 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
         {isExpanded ? (
           <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-12 relative overflow-hidden">
              
-             {/* Fondo Ameri */}
+             {/* Efectos Ameri CRT */}
              <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-1 bg-white/30 animate-[scanline_4s_linear_infinite]"></div>
              </div>
 
-             {/* Header */}
+             {/* Monitor de Fallos Críticos */}
+             {loadError && (
+               <div className="absolute top-1/4 z-[110] bg-red-600/90 border border-white/20 p-8 rounded-[40px] backdrop-blur-3xl animate-pulse text-white text-center shadow-[0_0_100px_rgba(220,38,38,0.5)]">
+                 <svg className="h-12 w-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                 <p className="text-xl font-black uppercase tracking-widest leading-tight max-w-sm">{loadError}</p>
+               </div>
+             )}
+
+             {/* UI Ameri Premium */}
              <div className="absolute top-8 inset-x-8 flex items-center justify-between z-50">
                 <button onClick={() => setIsExpanded(false)} className="flex items-center gap-3 group">
                    <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white/5 transition-colors">
                       <svg className="h-5 w-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
                    </div>
                    <div className="flex flex-col text-left">
-                      <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Monitor Ameri</span>
+                      <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Ameri Bio-Monitor</span>
                       <span className="text-[14px] font-black text-white uppercase truncate max-w-[200px]">{item.name}</span>
                    </div>
                 </button>
-                <button onClick={onClose} className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-500/20 text-white/40 hover:text-red-500 transition-all">
-                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
+                <div className="flex items-center gap-4">
+                  <a href={currentMediaUrl} download className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white/40 transition-all">
+                     <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                  </a>
+                  <button onClick={onClose} className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-500/20 text-white/40 hover:text-red-500 transition-all">
+                     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                </div>
              </div>
 
              <div className="w-full max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 z-10 px-4 pt-16">
                 
-                {/* BOTÓN GIGANTE DE REPRODUCCIÓN (REQUISITO: APARECE AL SELECCIONAR CANCIÓN EN PAUSA) */}
-                {!isPlaying && (
+                {!isPlaying && !loadError && (
                   <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md pointer-events-none">
                     <button 
                       onClick={togglePlayback}
@@ -161,7 +209,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                       <svg className="h-32 w-32 md:h-48 md:w-48 ml-6 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
                       </svg>
-                      <span className="text-xs md:text-sm font-black uppercase tracking-[0.8em] mt-6">PLAY AMERI</span>
+                      <span className="text-xs md:text-sm font-black uppercase tracking-[0.8em] mt-6">AMERI UNLOCKED</span>
                     </button>
                   </div>
                 )}
@@ -170,11 +218,15 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                   <div className="w-full h-full max-h-[75vh] bg-black rounded-[48px] overflow-hidden shadow-2xl border border-white/5 flex flex-col relative">
                     <video 
                       ref={videoRef} 
-                      src={currentMediaUrl} 
                       className="w-full h-full object-contain" 
                       controls={isPlaying} 
                       playsInline 
-                    />
+                      preload="auto"
+                      key={currentMediaUrl}
+                      crossOrigin="anonymous"
+                    >
+                      <source src={currentMediaUrl} type={getMimeType(currentMediaUrl)} />
+                    </video>
                   </div>
                 ) : (
                   <div className="flex flex-col md:flex-row items-center gap-16 w-full h-full">
@@ -207,13 +259,15 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                              </button>
                            </div>
                         </div>
-                        <audio ref={audioRef} src={currentMediaUrl} hidden />
+                        <audio ref={audioRef} preload="auto" key={currentMediaUrl} crossOrigin="anonymous">
+                           <source src={currentMediaUrl} type={getMimeType(currentMediaUrl)} />
+                        </audio>
                      </div>
                      
                      <div className="flex-1 w-full h-[400px] md:h-[600px] relative">
                         <div className="absolute inset-0 border-l border-white/5 flex flex-col">
                            <div className="px-8 py-4 border-b border-white/5 flex justify-between items-center bg-white/5">
-                              <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Letras Sincronizadas</span>
+                              <span className="text-[10px] font-black uppercase text-[#d0bcff] tracking-widest">Sincronización Cerebral</span>
                            </div>
                            <div className="flex-1 overflow-y-auto no-scrollbar px-8 py-10 relative">
                               {cues.length > 0 ? (
@@ -229,7 +283,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                                 </div>
                               ) : (
                                 <div className="h-full flex flex-col items-center justify-center text-white/5">
-                                   <span className="text-[10px] font-black uppercase tracking-widest">Contenido Instrumental</span>
+                                   <span className="text-[10px] font-black uppercase tracking-widest">DATOS INSTRUMENTALES</span>
                                 </div>
                               )}
                            </div>
@@ -247,7 +301,7 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
                </div>
                <div className="truncate">
                   <p className="text-[14px] font-black text-white uppercase truncate tracking-tight">{item.name}</p>
-                  <p className="text-[9px] font-black text-[#d0bcff] uppercase tracking-widest opacity-40">{item.format} • {isPlaying ? 'SONANDO' : 'PAUSA'}</p>
+                  <p className="text-[9px] font-black text-[#d0bcff] uppercase tracking-widest opacity-40">{item.format} • {isPlaying ? 'SONANDO' : 'DETENIDO'}</p>
                </div>
             </div>
             <div className="flex items-center gap-4" onClick={e => e.stopPropagation()}>
@@ -265,9 +319,6 @@ const PersistentPlayer: React.FC<PersistentPlayerProps> = ({
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes scanline { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        video::-webkit-media-controls-panel {
-          background-image: linear-gradient(transparent, rgba(15, 14, 19, 0.8));
-        }
       `}} />
     </div>
   );

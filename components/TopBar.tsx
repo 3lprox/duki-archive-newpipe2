@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface TopBarProps {
   onSearch: (query: string) => void;
@@ -6,8 +6,39 @@ interface TopBarProps {
 }
 
 const TopBar: React.FC<TopBarProps> = ({ onSearch, searchQuery }) => {
+  const [showMoreInfo, setShowMoreInfo] = useState(false);
+
   return (
     <div className="w-full flex flex-col bg-[#1c1b1f] z-[100] relative">
+      {/* Banner de Problemas Técnicos */}
+      <div className="w-full bg-red-900/40 border-b border-red-500/20 px-4 py-2">
+        <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-center">
+          <div className="flex items-center gap-2">
+            <svg className="h-4 w-4 text-red-400 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span className="text-[11px] font-black uppercase tracking-widest text-red-200">
+              Estamos teniendo problemas con el proveedor
+            </span>
+          </div>
+          <button 
+            onClick={() => setShowMoreInfo(!showMoreInfo)}
+            className="text-[10px] font-black uppercase tracking-widest bg-red-500/20 hover:bg-red-500/40 text-red-100 px-3 py-1 rounded-full border border-red-500/30 transition-all active:scale-95"
+          >
+            {showMoreInfo ? 'Cerrar' : 'Más información'}
+          </button>
+        </div>
+        
+        {/* Información Detallada Expandible */}
+        {showMoreInfo && (
+          <div className="max-w-[800px] mx-auto mt-3 p-4 bg-black/40 rounded-2xl border border-red-500/20 animate-in slide-in-from-top-2 duration-300">
+            <p className="text-[11px] leading-relaxed text-red-100/80 font-medium uppercase tracking-wider text-center">
+              Estamos teniendo problemas con el volumen de archivo, ya que estamos extrayendo de Drive varias cosas y reintegrándolas en Catbox y puede no funcionar correctamente, el servidor está devolviendo 0 (sin archivo) o corrupto, algo que no toleraré que pase de nuevo.
+            </p>
+          </div>
+        )}
+      </div>
+
       <div className="w-full px-4 md:px-6 h-16 md:h-20 flex items-center justify-between border-b border-white/5 shadow-md">
         <div className="mx-auto w-full max-w-[1600px] flex items-center justify-between gap-4">
           
