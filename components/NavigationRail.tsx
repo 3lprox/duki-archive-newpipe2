@@ -41,7 +41,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
   ];
 
   return (
-    <nav className="flex md:flex-col items-center justify-around md:justify-start gap-2 md:gap-6 p-2 md:pt-8 bg-[#1c1b1f] md:w-[96px] h-full border-r border-white/5 z-50">
+    <nav className="flex md:flex-col items-center justify-around md:justify-start gap-2 md:gap-6 p-2 md:pt-10 bg-[#1c1b1f] md:w-[100px] h-full border-r border-white/5 z-50 overflow-y-auto no-scrollbar">
       {items.map((item) => {
         const isActive = activeType === item.id;
         
@@ -49,15 +49,15 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ activeType, onTypeChang
           <button
             key={item.id}
             onClick={() => onTypeChange(item.id as any)}
-            className="flex flex-col items-center gap-1.5 w-full group relative"
+            className="flex flex-col items-center gap-1 w-full group relative focus:outline-none"
           >
             {/* MD3 Active Indicator Pill */}
-            <div className={`relative h-8 w-14 md:h-8 md:w-16 flex items-center justify-center rounded-full transition-all duration-200 ${isActive ? 'bg-[#d0bcff] text-[#381e72]' : 'text-[#938f99] hover:bg-white/5'}`}>
+            <div className={`relative h-8 w-14 md:h-8 md:w-16 flex items-center justify-center rounded-full transition-all duration-300 ${isActive ? 'bg-[#d0bcff] text-[#381e72]' : 'text-[#938f99] hover:bg-white/5'}`}>
                <div className={`absolute inset-0 bg-[#d0bcff]/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-full`}></div>
                {item.icon}
             </div>
             
-            <span className={`text-[11px] font-medium tracking-tight transition-colors ${isActive ? 'text-[#d0bcff]' : 'text-[#938f99]'}`}>
+            <span className={`text-[11px] font-bold tracking-tight transition-colors ${isActive ? 'text-[#d0bcff]' : 'text-[#938f99]'}`}>
               {item.label}
             </span>
           </button>
